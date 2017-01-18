@@ -44,3 +44,6 @@ crashlytics-build.properties
 fabric.properties
 .gitignore
 .idea/
+
+# Vagrant working dir
+.vagrant
