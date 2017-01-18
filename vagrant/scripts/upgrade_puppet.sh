@@ -12,5 +12,5 @@ then
     wget -q http://apt.puppetlabs.com/$DEB
     sudo dpkg -i $DEB
 fi
-sudo apt-get update
-sudo apt-get install --yes puppet
+sudo apt-get update -q
+sudo apt-get install -y puppet

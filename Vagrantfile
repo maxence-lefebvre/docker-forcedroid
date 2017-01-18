@@ -10,8 +10,8 @@ Vagrant.configure("2") do |config|
   # This is to ensure the modules are installed AND not stored inside version control
   # When modules installation is running, puppet has not run yet, meaning /etc/puppet/modules may not have been created
 
-  config.vm.provision :shell, :path => "vagrant/scripts/upgrade_puppet.sh"
-  config.vm.provision :shell, :path => "vagrant/scripts/install_puppet_modules.sh"
+  # config.vm.provision :shell, :path => "vagrant/scripts/install_puppet_modules.sh"
+  # config.vm.provision :shell, :path => "vagrant/scripts/upgrade_puppet.sh"
 
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "puppet/manifests"

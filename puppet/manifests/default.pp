@@ -16,7 +16,8 @@ package { 'cordova':
 
 # Disable telemtry
 exec { 'disable cordova telemetry':
-  command => 'cordova telemetry off'
+  command => 'cordova telemetry off',
+  path    => ['/usr/bin', '/usr/sbin']
 }
 
 # Install forcedroid
