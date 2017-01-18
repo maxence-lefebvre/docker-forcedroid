@@ -47,3 +47,6 @@ fabric.properties
 
 # Vagrant working dir
 .vagrant
+
+# Forcedroid working dir
+apps/
