@@ -10,12 +10,30 @@ Vagrant.configure("2") do |config|
   # This is to ensure the modules are installed AND not stored inside version control
   # When modules installation is running, puppet has not run yet, meaning /etc/puppet/modules may not have been created
 
+
   config.vm.provision :shell, :path => "vagrant/scripts/install_puppet_modules.sh"
   config.vm.provision :shell, :path => "vagrant/scripts/upgrade_puppet.sh"
 
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "puppet/manifests"
   end
+
+  # Upgrade VM performance
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id,
+                  # claims to need 4GB of memory available minimum
+                  "--memory", "4096",
+                  # Enable DNS behind NAT
+                  "--natdnshostresolver1", "on",
+                  # Enable DNS behind PROXY
+                  "--natdnsproxy1", "on"
+                  ]
+
+    vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/SHARE_NAME", "1"]
+    vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
+  end
+
+
 
   if Vagrant.has_plugin?("vagrant-proxyconf")
       if ENV["http_proxy"]

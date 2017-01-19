@@ -1,7 +1,7 @@
 # Install java 8 & android SDK
 class { 'java': } ->
   class { 'android':
-  #  installdir => '/opt/android'
+    installdir => '/opt/android'
   }
 
 android::platform { 'android-24' : }
@@ -33,7 +33,10 @@ package { 'forcedroid':
 include git
 
 # set path to android
-# file { '/etc/profile.d/android.sh':
-#   mode    => '644',
-#   content => 'PATH=$PATH:/opt/android',
-# }
+file { '/etc/profile.d/android_home.sh':
+  mode    => '644',
+  content => 'export ANDROID_HOME=/opt/android/android-sdk-linux',
+} -> file { '/etc/profile.d/android_path.sh':
+  mode    => '644',
+  content => 'export PATH=$PATH:$ANDROID_HOME/tools',
+}
