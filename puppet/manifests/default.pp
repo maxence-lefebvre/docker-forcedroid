@@ -1,6 +1,8 @@
 # Install java 8 & android SDK
 class { 'java': } ->
-  class { 'android': }
+  class { 'android':
+  #  installdir => '/opt/android'
+  }
 
 android::platform { 'android-24' : }
 android::build_tools { 'build-tools-24.0.1' : }
@@ -15,10 +17,10 @@ package { 'cordova':
   ensure          => 'present',
   install_options => ['--silent'],
   provider        => 'npm',
-} -> # Disable telemtry
+} -> # Disable telemetry
   exec { 'disable cordova telemetry':
-    command => '/usr/bin/cordova telemetry off',
-    user    => root
+    environment => ['HOME=/home/vagrant'],
+    command => '/usr/bin/cordova telemetry off'
   }
 
 # Install forcedroid
@@ -29,3 +31,9 @@ package { 'forcedroid':
 }
 
 include git
+
+# set path to android
+# file { '/etc/profile.d/android.sh':
+#   mode    => '644',
+#   content => 'PATH=$PATH:/opt/android',
+# }
