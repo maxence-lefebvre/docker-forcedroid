@@ -10,9 +10,10 @@ Vagrant.configure("2") do |config|
   # This is to ensure the modules are installed AND not stored inside version control
   # When modules installation is running, puppet has not run yet, meaning /etc/puppet/modules may not have been created
 
-
-  config.vm.provision :shell, :path => "vagrant/scripts/install_puppet_modules.sh"
+  config.vm.provision :shell, :path => "vagrant/scripts/debug.sh"
   config.vm.provision :shell, :path => "vagrant/scripts/upgrade_puppet.sh"
+  config.vm.provision :shell, :path => "vagrant/scripts/install_puppet_modules.sh"
+  config.vm.provision :shell, :path => "vagrant/scripts/set_environment_variables.sh"
 
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "puppet/manifests"
@@ -23,6 +24,8 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id,
                   # claims to need 4GB of memory available minimum
                   "--memory", "4096",
+                  # dual core
+                  "--cpus", "2",
                   # Enable DNS behind NAT
                   "--natdnshostresolver1", "on",
                   # Enable DNS behind PROXY

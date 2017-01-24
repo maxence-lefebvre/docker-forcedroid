@@ -10,7 +10,7 @@ To accomplish this, two ways are proposed :
 
 ### I.1 Vagrant box dependencies
 
-To use this vagrant box, ensure that you have vagrant and virtualbox installed.
+To use this vagrant base box, ensure that you have vagrant and virtualbox installed.
 On Windows, you can install them by installing chocolatey then running
 
 ```
@@ -28,7 +28,7 @@ vagrant plugin install vagrant-proxyconf
 
 This plugin will configure the proxy inside the guest OS and supports multiple targets, such as docker, apt, yum, etc...
 
-### I.3 Using the vagrant box
+### I.3 Using the vagrant base box
 
 ```
 vagrant init #....
